@@ -1,4 +1,6 @@
-- import_playbook: in_memorey_inventory.yml
+---
+- name: Building openstack instance inventory
+  import_playbook: in_memorey_inventory.yml
              
 - hosts: all 
   gather_facts: false
