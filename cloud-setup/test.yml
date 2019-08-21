@@ -1,0 +1,15 @@
+- hosts: localhost
+  tasks:
+  - name: download file
+    get_url:
+      url: http://www.opentlc.com/download/ansible_bootcamp/openstack_keys/openstack.pem
+      dest: /tmp/a.conf
+      mode: '400'
+    register: output
+    
+  - debug: var=output
+  - debug: var=ansible_fqdn
+  - command: ls /tmp
+    register: output
+  - debug: var=output
+      

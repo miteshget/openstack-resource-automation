@@ -1,0 +1,58 @@
+---
+- name: Basic config for control node
+  hosts: localhost
+  gather_facts: False
+  tasks:
+  - name: Download Private key
+    get_url:
+      url: http://www.opentlc.com/download/ansible_bootcamp/openstack_keys/openstack.pem
+      dest: "{{ item }}"
+      mode: 0400
+    loop: 
+      - /home/cloud-user/.ssh/
+      - /root/.ssh/
+
+  - name: Download Public key
+    get_url:
+      url: http://www.opentlc.com/download/ansible_bootcamp/openstack_keys/openstack.pub
+      dest: "{{ item }}"
+      mode: 0400
+    loop: 
+      - /home/cloud-user/.ssh/
+      - /root/.ssh/
+
+  - name: add ssh public key in authorized file
+    authorized_key: 
+      user: cloud-user
+      key: http://www.opentlc.com/download/ansible_bootcamp/openstack_keys/openstack.pub
+    
+  - name: Install packages
+    yum:
+      name:
+        - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+        - python-pip 
+        - gcc 
+        - git
+        - ansible
+      
+  - name: Install openstacksdk
+    shell: pip install openstacksdk ansible -U
+
+  - name: create openstack dir
+    file:
+      path: /etc/openstack
+      state: directory
+
+  - name: create clouds.yml
+    template:
+      src: clouds.yml.j2
+      dest: /etc/openstack/clouds.yml
+  
+  - name: Verify openstack connectivity
+    os_auth:
+      cloud: ospcloud
+
+  - name: get user's list
+    os_user_facts:
+      cloud: ospcloud
+
