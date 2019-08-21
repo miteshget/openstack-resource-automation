@@ -12,8 +12,8 @@
       state: directory
 
   - name: create clouds.yml
-    template:
-      src: clouds.yml.j2
+    copy:
+      src: clouds.yml
       dest: /etc/openstack/clouds.yml
   
   - name: Verify openstack connectivity
