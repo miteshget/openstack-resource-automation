@@ -31,7 +31,7 @@
   tasks:
     - name: Accessing frontend
       uri:
-        url: "{{ item }}"
+        url: http://"{{ item }}"
         status: 200
       loop: "{{ groups['frontends'] }}"
 
