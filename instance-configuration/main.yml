@@ -24,4 +24,14 @@
 
     - role: postgresql
       when: inventory_hostname in groups['appdbs']
+ 
+
+- name: Smoke test
+  hosts: localhost
+  tasks:
+    - name: Accessing frontend
+      uri:
+        url: "{{ item }}"
+        status: 200
+      loop: "{{ groups['frontends'] }}"
 
