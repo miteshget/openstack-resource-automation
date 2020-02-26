@@ -32,6 +32,6 @@
     - name: Accessing frontend
       uri:
         url: http://{{item}}
-        status: 200
+        status_code: 200
       loop: "{{ groups['frontends'] }}"
 
