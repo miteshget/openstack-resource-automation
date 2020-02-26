@@ -12,4 +12,6 @@
     - include_tasks: tasks/app2.yml
     - include_tasks: tasks/db.yml
 
-- import_playbook: instance_inventory.yml
+# Uncomment below line to check connectivity provided you have credential
+# configured for instances on tower. 
+# - import_playbook: instance_inventory.yml
