@@ -9,8 +9,7 @@ clouds:
       user_domain_name: "Default"
     region_name: "regionOne"
     interface: "public"
-    identity_api_version: '3.0'
-    
+    identity_api_version: '3'
   ospcloud_old:
     auth:
       auth_url: http://192.168.0.20:5000/
